@@ -14,7 +14,6 @@
 *.jar
 *.war
 *.ear
-*.zip
 *.tar.gz
 *.rar
 
@@ -33,6 +32,7 @@ classes/
 deploy/
 javadoc/
 data/
+spark-warehouse/
 sql/
 out/
 log/
