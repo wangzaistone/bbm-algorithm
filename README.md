@@ -2,11 +2,12 @@
 基于分布式计算框架的算法实现
 
 ## Command
-- `args` needed:
-   args[0], `Path`: /rainbow-manage/1M-clean-data-index ("/rainbow-manage/Points.txt" for test)
-   args[1], `Path`: " " ("," for test)
-   args[2], `TableName`: "Point"
-   args[3], `Sql`: select a.* from (  select p1.ID, p1.PointX, p1.PointY, p2.ID as P2_ID, p2.PointX as P1_PointX, p2.PointY as P2_PointY, round((cast(p1.PointX as float) - cast(p2.PointX as float)), 4) * round((cast(p1.PointX as float) - cast(p2.PointX as float)), 4) as num from Point p1, Point p2) a where a.num = 4 and a.PointY = 2
+| args    | description | info   |
+|---------|--------|-------------|
+| args[0] | Path | /rainbow-manage/1M-clean-data-index ("/rainbow-manage/Points.txt" for test) |
+| args[1] | Split | " " ("," for test) |
+| args[2] | TableName | Point |
+| args[3] | Sql | select a.* from (  select p1.ID, p1.PointX, p1.PointY, p2.ID as P2_ID, p2.PointX as P1_PointX, p2.PointY as P2_PointY, round((cast(p1.PointX as float) - cast(p2.PointX as float)), 4) * round((cast(p1.PointX as float) - cast(p2.PointX as float)), 4) as num from Point p1, Point p2) a where a.num = 4 and a.PointY = 2 |
 
 ## Required Software
 - Java Platform (JDK) >= 8; once installed, update JAVA_HOME to your installed java folder.
@@ -18,7 +19,7 @@ For configuration of the demo, you can:
 > * mvn clean
 > * mvn install
 > * ./sbin/start-all.sh(start Spark Cluster)
-> * ./bin/spark-submit --master spark://presto00:7077 /home/presto/opt/bbm-algorithm-1.0-SNAPSHOT.jar
+> * ./bin/spark-submit --master spark://presto00:7077 /home/presto/opt/bbm-algorithm.jar "/rainbow-manage/Points.txt" "," "Point" "select a.* from (  select p1.ID, p1.PointX, p1.PointY, p2.ID as P2_ID, p2.PointX as P1_PointX, p2.PointY as P2_PointY, round((cast(p1.PointX as float) - cast(p2.PointX as float)), 4) * round((cast(p1.PointX as float) - cast(p2.PointX as float)), 4) as num from Point p1, Point p2) a where a.num = 4 and a.PointY = 2"
 >
 
 ## Note
@@ -45,5 +46,12 @@ Select R.ID, S.ID from R right outer join S where L2(R,S) <= q
 ## Contact
 For feedback and questions with IntelliJ IDEA building the project, feel free to email us:
 * Youxian Tao taoyouxian@aliyun.com
+
+## More
+See [LastVersion](https://github.com/taoyouxian/master-candidate/blob/master/mc-bbm/src/main/java/cn.edu.ruc.iir.mc.bbm/Main.java)
+- Test
+```sql
+./bin/spark-submit --master spark://presto00:7077 /home/presto/opt/bbm-algorithm.jar "/rainbow-manage/Points.txt" "," "Point" "select a.* from (  select p1.ID, p1.PointX, p1.PointY, p2.ID as P2_ID, p2.PointX as P1_PointX, p2.PointY as P2_PointY, round((cast(p1.PointX as float) - cast(p2.PointX as float)), 4) * round((cast(p1.PointX as float) - cast(p2.PointX as float)), 4) as num from Point p1, Point p2) a where a.num = 4 and a.PointY = 2"
+```
 
 
